@@ -1,0 +1,67 @@
+# to read a data from a file using oops concept
+  # create a file class for reading a data from a file with methods read and write
+
+
+##### NON OOPS CONCEPT####
+def read():
+    try:
+        with open('test.txt', 'r') as file:
+            data = file.read
+            return data
+    except FileNotFoundError as e :
+        print(e)
+
+def write():
+    with open('test.txt','w') as file:
+        data = file.write('this is a test data')
+
+
+####USING OOPAS CONCEPT Sans logging####
+class file:
+    def read(self):
+        try:
+            with open('test.txt','r') as file :
+                data = file.read()
+                return data
+        except Exception as e:
+                print(e)
+    
+    def write(self,data):
+        try:
+            with open('test.txt','w') as file:
+                data = file.write(data)
+        except Exception as e:
+            print (e)
+
+
+####USING OOPS AS CONCEPT with logging####
+
+import logging
+logging.basicConfig(filename = 'file_class1.log', level = logging.DEBUG, filemode = 'w', format = '%(asctime)s %(levelname)s %(message)s')
+
+                    
+class file:
+    def __init__ (self, filename):
+        self.filename = filename
+        
+                
+    def read(self):
+        logging.info('This is the start of the read operation')
+        try:
+            logging.info('I am inside try part of read method')
+            with open(self.filename,'r') as file :
+                data = file.read()
+                logging.info('I am able to read the file')
+                return data
+        except Exception as e:
+                #print(e)
+                logging.error('There is some problem with reading the file')
+                logging.error(e)
+                
+    
+    def write(self,data):
+        try:
+            with open(self.filename,'w') as file:
+                data = file.write(data)
+        except Exception as e:
+            print (e)
